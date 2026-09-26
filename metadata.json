@@ -1,0 +1,6 @@
+{
+  "name": "BD Single Product E-commerce & Order Engine",
+  "description": "Production-ready single product sales landing page and admin order management system for Bangladesh with cash-on-delivery and Google Sheets database.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

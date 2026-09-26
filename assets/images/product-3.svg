@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#bg3)"/>
+
+  <!-- Title inside SVG -->
+  <text x="400" y="80" text-anchor="middle" fill="#0F172A" font-family="system-ui, sans-serif" font-size="28" font-weight="800">৩টি প্রিমিয়াম কালার ভ্যারিয়েন্ট</text>
+  <text x="400" y="112" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="16">যেকোনো একটি বা কম্বো সিলেক্ট করুন</text>
+
+  <!-- Variant 1: Orange Alpine -->
+  <g transform="translate(100, 160)">
+    <rect x="10" y="20" width="160" height="420" rx="28" fill="#FFF" stroke="#E2E8F0" stroke-width="2"/>
+    <!-- Strap -->
+    <rect x="45" y="40" width="90" height="380" rx="14" fill="#F97316"/>
+    <!-- Watch Face -->
+    <rect x="30" y="140" width="120" height="150" rx="30" fill="#94A3B8"/>
+    <rect x="40" y="150" width="100" height="130" rx="22" fill="#0F172A"/>
+    <text x="90" y="222" text-anchor="middle" fill="#F97316" font-family="sans-serif" font-size="22" font-weight="700">10:48</text>
+    <text x="90" y="470" text-anchor="middle" fill="#0F172A" font-family="sans-serif" font-size="16" font-weight="700">অরেঞ্জ আলপাইন</text>
+    <text x="90" y="495" text-anchor="middle" fill="#F97316" font-family="sans-serif" font-size="14" font-weight="600">সবচেয়ে জনপ্রিয়</text>
+  </g>
+
+  <!-- Variant 2: Midnight Black -->
+  <g transform="translate(310, 160)">
+    <rect x="10" y="20" width="160" height="420" rx="28" fill="#FFF" stroke="#E2E8F0" stroke-width="2"/>
+    <!-- Strap -->
+    <rect x="45" y="40" width="90" height="380" rx="14" fill="#1E293B"/>
+    <!-- Watch Face -->
+    <rect x="30" y="140" width="120" height="150" rx="30" fill="#64748B"/>
+    <rect x="40" y="150" width="100" height="130" rx="22" fill="#020617"/>
+    <text x="90" y="222" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="22" font-weight="700">10:48</text>
+    <text x="90" y="470" text-anchor="middle" fill="#0F172A" font-family="sans-serif" font-size="16" font-weight="700">মিডনাইট ব্ল্যাক</text>
+    <text x="90" y="495" text-anchor="middle" fill="#64748B" font-family="sans-serif" font-size="14">ক্লাসিক লাক্সারি</text>
+  </g>
+
+  <!-- Variant 3: Ocean Blue / Starlight -->
+  <g transform="translate(520, 160)">
+    <rect x="10" y="20" width="160" height="420" rx="28" fill="#FFF" stroke="#E2E8F0" stroke-width="2"/>
+    <!-- Strap -->
+    <rect x="45" y="40" width="90" height="380" rx="14" fill="#0284C7"/>
+    <!-- Watch Face -->
+    <rect x="30" y="140" width="120" height="150" rx="30" fill="#CBD5E1"/>
+    <rect x="40" y="150" width="100" height="130" rx="22" fill="#0B132B"/>
+    <text x="90" y="222" text-anchor="middle" fill="#38BDF8" font-family="sans-serif" font-size="22" font-weight="700">10:48</text>
+    <text x="90" y="470" text-anchor="middle" fill="#0F172A" font-family="sans-serif" font-size="16" font-weight="700">ওশান ব্লু</text>
+    <text x="90" y="495" text-anchor="middle" fill="#64748B" font-family="sans-serif" font-size="14">স্পোর্টস এডিশন</text>
+  </g>
+
+  <!-- Bottom Promise -->
+  <rect x="200" y="700" width="400" height="50" rx="25" fill="#E0F2FE"/>
+  <text x="400" y="732" text-anchor="middle" fill="#0369A1" font-family="system-ui, sans-serif" font-size="15" font-weight="700">অর্ডারের সময় পছন্দের কালার সিলেক্ট করুন</text>
+</svg>

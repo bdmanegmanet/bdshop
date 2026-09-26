@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#bg4)"/>
+
+  <text x="400" y="80" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="28" font-weight="800">কেন এই স্মার্টওয়াচটি সেরা?</text>
+  <text x="400" y="112" text-anchor="middle" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="16">হাই-এন্ড প্রিমিয়াম ফিচারসমূহ এক নজরে</text>
+
+  <!-- 4 Feature Cards Grid -->
+  <!-- Card 1: HD Calling -->
+  <g transform="translate(80, 160)">
+    <rect width="300" height="230" rx="20" fill="url(#cardGrad)" stroke="#334155" stroke-width="2"/>
+    <circle cx="60" cy="60" r="28" fill="#3B82F6" opacity="0.2"/>
+    <path d="M 50 50 C 50 64, 56 70, 70 70" stroke="#3B82F6" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="65" cy="55" r="4" fill="#3B82F6"/>
+    <text x="30" y="125" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="20" font-weight="700">এইচডি ব্লুটুথ কলিং</text>
+    <text x="30" y="155" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">বিল্ট-ইন হাই কোয়ালিটি মাইক ও</text>
+    <text x="30" y="177" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">স্পিকার, সরাসরি কথা বলুন ক্লিয়ারলি।</text>
+  </g>
+
+  <!-- Card 2: 7-Day Battery -->
+  <g transform="translate(420, 160)">
+    <rect width="300" height="230" rx="20" fill="url(#cardGrad)" stroke="#334155" stroke-width="2"/>
+    <circle cx="60" cy="60" r="28" fill="#10B981" opacity="0.2"/>
+    <rect x="46" y="50" width="28" height="18" rx="4" fill="none" stroke="#10B981" stroke-width="3"/>
+    <rect x="74" y="55" width="3" height="8" rx="1.5" fill="#10B981"/>
+    <path d="M 54 59 L 60 55 L 58 63 L 66 59" stroke="#10B981" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <text x="30" y="125" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="20" font-weight="700">৭ দিনের লং ব্যাটারি</text>
+    <text x="30" y="155" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">একবার চার্জে সাধারণ ব্যবহারে ৭ দিন</text>
+    <text x="30" y="177" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">ও স্ট্যান্ডবাই ৩০ দিন পর্যন্ত ব্যাকআপ।</text>
+  </g>
+
+  <!-- Card 3: IP68 Water Proof -->
+  <g transform="translate(80, 430)">
+    <rect width="300" height="230" rx="20" fill="url(#cardGrad)" stroke="#334155" stroke-width="2"/>
+    <circle cx="60" cy="60" r="28" fill="#06B6D4" opacity="0.2"/>
+    <path d="M 60 46 C 54 54, 48 62, 60 74 C 72 62, 66 54, 60 46 Z" fill="#06B6D4"/>
+    <text x="30" y="125" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="20" font-weight="700">IP68 ওয়াটারপ্রুফ</text>
+    <text x="30" y="155" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">বৃষ্টি, হাত ধোয়া বা ঘামের পানিতে</text>
+    <text x="30" y="177" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">নষ্ট হওয়ার কোনো ভয় নেই।</text>
+  </g>
+
+  <!-- Card 4: 100+ Sports & Health -->
+  <g transform="translate(420, 430)">
+    <rect width="300" height="230" rx="20" fill="url(#cardGrad)" stroke="#334155" stroke-width="2"/>
+    <circle cx="60" cy="60" r="28" fill="#F59E0B" opacity="0.2"/>
+    <circle cx="60" cy="48" r="5" fill="#F59E0B"/>
+    <path d="M 52 58 L 60 55 L 68 59 M 60 55 L 60 68 L 54 75 M 60 68 L 66 75" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="30" y="125" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="20" font-weight="700">হেলথ ও ১০০+ স্পোর্টস</text>
+    <text x="30" y="155" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">হার্ট রেট, অক্সিজেন, স্লিপ ট্র্যাকিং</text>
+    <text x="30" y="177" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="14">ও রিয়েলটাইম স্টেপ ও ক্যালোরি কাউন্টার।</text>
+  </g>
+
+  <rect x="250" y="700" width="300" height="46" rx="23" fill="#F97316"/>
+  <text x="400" y="730" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="15" font-weight="700">১০০% অরিজিনাল গ্যাজেট গ্যারান্টি</text>
+</svg>

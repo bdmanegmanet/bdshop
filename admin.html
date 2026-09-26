@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>এডমিন ড্যাশবোর্ড — বিডি অর্ডার ম্যানেজমেন্ট</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================
+       LOGIN VIEW (SHOWN WHEN NOT AUTHENTICATED)
+       ========================================== -->
+  <div id="loginView" class="login-wrap">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main);">এডমিন লগইন</h2>
+        <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.25rem;">
+          অর্ডার ম্যানেজমেন্ট প্যানেলে প্রবেশ করতে তথ্য দিন
+        </p>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="adminUsername" class="form-label">ইউজারনেম (Username)</label>
+          <input type="text" id="adminUsername" class="form-control" placeholder="admin" required autocomplete="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword" class="form-label">পাসওয়ার্ড (Password)</label>
+          <input type="password" id="adminPassword" class="form-control" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+            <span class="btn-text">লগইন করুন</span>
+            <span class="btn-spinner" style="display: none;"><span class="spinner"></span> যাচাই করা হচ্ছে...</span>
+          </button>
+        </div>
+
+        <div style="margin-top: 1.25rem; font-size: 0.8rem; color: var(--text-light); text-align: center; line-height: 1.4;">
+          🔒 ব্যাকএন্ড টোকেন সিকিউরিটি দ্বারা সংরক্ষিত।<br>
+          <span style="color: var(--brand-accent); font-weight: 600;">ডিফল্ট ইউজারনেম: admin | পাসওয়ার্ড: admin123</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       AUTHENTICATED DASHBOARD VIEW
+       ========================================== -->
+  <div id="dashboardView" style="display: none;">
+    
+    <!-- Top Admin Header -->
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <div class="admin-title-area">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <h1 class="admin-title">অর্ডার ও স্টোর ম্যানেজমেন্ট</h1>
+          <span id="backendBadge" style="font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: var(--radius-sm); font-weight: 600; background: #FEF3C7; color: #B45309;">
+            ডেমো মোড
+          </span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="admin-user-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span id="loggedInAdminName">এডমিন</span>
+          </div>
+
+          <a href="index.html" target="_blank" class="btn btn-outline btn-sm" title="ওয়েবসাইট দেখুন">
+            ওয়েবসাইট ↗
+          </a>
+
+          <button type="button" class="btn btn-outline btn-sm" id="logoutBtn" style="color: var(--danger); border-color: #FECACA;">
+            লগআউট
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs Bar -->
+      <div class="container" style="margin-top: 1rem;">
+        <nav class="admin-nav-tabs" role="tablist">
+          <button type="button" class="admin-tab-btn active" data-tab="tabOrders" role="tab" aria-selected="true">
+            📦 অর্ডার ম্যানেজমেন্ট (Orders)
+          </button>
+          <button type="button" class="admin-tab-btn" data-tab="tabProduct" role="tab" aria-selected="false">
+            🛍️ পণ্য ও মূল্য পরিবর্তন (Product & Price)
+          </button>
+          <button type="button" class="admin-tab-btn" data-tab="tabSettings" role="tab" aria-selected="false">
+            ⚙️ শপ ও ডেলিভারি সেটিংস (Store Settings)
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      
+      <!-- ==============================================
+           TAB 1: ORDERS MANAGEMENT (FULL A TO Z EDIT)
+           ============================================== -->
+      <div id="tabOrders" class="admin-tab-content active">
+        <!-- Metrics Overview Cards -->
+        <section class="metrics-grid" aria-label="অর্ডার পরিসংখ্যান">
+          <div class="metric-card">
+            <span class="metric-title">সর্বমোট অর্ডার</span>
+            <span class="metric-value" id="metricTotal">০</span>
+          </div>
+
+          <div class="metric-card status-pending">
+            <span class="metric-title">পেন্ডিং (Pending)</span>
+            <span class="metric-value" id="metricPending">০</span>
+          </div>
+
+          <div class="metric-card status-confirmed">
+            <span class="metric-title">কনফার্মড (Confirmed)</span>
+            <span class="metric-value" id="metricConfirmed">০</span>
+          </div>
+
+          <div class="metric-card status-processing">
+            <span class="metric-title">প্রসেসিং (Processing)</span>
+            <span class="metric-value" id="metricProcessing">০</span>
+          </div>
+
+          <div class="metric-card status-shipped">
+            <span class="metric-title">শিপড (Shipped)</span>
+            <span class="metric-value" id="metricShipped">০</span>
+          </div>
+
+          <div class="metric-card status-delivered">
+            <span class="metric-title">ডেলিভারড (Delivered)</span>
+            <span class="metric-value" id="metricDelivered">০</span>
+          </div>
+
+          <div class="metric-card status-cancelled">
+            <span class="metric-title">বাতিল (Cancelled)</span>
+            <span class="metric-value" id="metricCancelled">০</span>
+          </div>
+
+          <div class="metric-card status-returned">
+            <span class="metric-title">রিটার্নড (Returned)</span>
+            <span class="metric-value" id="metricReturned">০</span>
+          </div>
+        </section>
+
+        <!-- Filters & Toolbar -->
+        <section class="admin-toolbar">
+          <div class="toolbar-filters">
+            <!-- Search input -->
+            <div class="search-input-wrap">
+              <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="searchInput" class="form-control" placeholder="অর্ডার আইডি, নাম বা ফোন নম্বর দিয়ে খুঁজুন..." />
+            </div>
+
+            <!-- Status Filter -->
+            <select id="statusFilter" class="form-control" style="width: auto; min-width: 150px;">
+              <option value="ALL">সব স্ট্যাটাস</option>
+              <option value="Pending">Pending (পেন্ডিং)</option>
+              <option value="Confirmed">Confirmed (নিশ্চিত)</option>
+              <option value="Processing">Processing (প্রক্রিয়াধীন)</option>
+              <option value="Shipped">Shipped (কুরিয়ারে)</option>
+              <option value="Delivered">Delivered (সম্পন্ন)</option>
+              <option value="Cancelled">Cancelled (বাতিল)</option>
+              <option value="Returned">Returned (ফেরত)</option>
+            </select>
+
+            <!-- Division Filter -->
+            <select id="divisionFilter" class="form-control" style="width: auto; min-width: 130px;">
+              <option value="ALL">সব বিভাগ</option>
+              <option value="ঢাকা">ঢাকা</option>
+              <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+              <option value="রাজশাহী">রাজশাহী</option>
+              <option value="খুলনা">খুলনা</option>
+              <option value="বরিশাল">বরিশাল</option>
+              <option value="সিলেট">সিলেট</option>
+              <option value="রংপুর">রংপুর</option>
+              <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+            </select>
+
+            <!-- Sort Order -->
+            <select id="sortFilter" class="form-control" style="width: auto; min-width: 150px;">
+              <option value="newest">নতুন অর্ডার আগে</option>
+              <option value="oldest">পুরাতন অর্ডার আগে</option>
+              <option value="highest_val">মূল্য: বেশি থেকে কম</option>
+              <option value="lowest_val">মূল্য: কম থেকে বেশি</option>
+            </select>
+          </div>
+
+          <div class="toolbar-actions">
+            <button type="button" class="btn btn-outline btn-sm" id="refreshBtn" title="নতুন তথ্য লোড করুন">
+              🔄 রিফ্রেশ
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="exportCsvBtn" title="CSV ফাইল ডাউনলোড">
+              📥 এক্সপোর্ট CSV
+            </button>
+          </div>
+        </section>
+
+        <!-- Orders Data Table -->
+        <section class="table-container">
+          <table class="data-table" id="ordersTable">
+            <thead>
+              <tr>
+                <th>অর্ডার আইডি</th>
+                <th>তারিখ</th>
+                <th>গ্রাহকের নাম</th>
+                <th>মোবাইল নম্বর</th>
+                <th>লোকেশন</th>
+                <th>পণ্য ও ভ্যারিয়েন্ট</th>
+                <th>পরিমাণ</th>
+                <th>মোট টাকা</th>
+                <th>পেমেন্ট</th>
+                <th>স্ট্যাটাস</th>
+                <th>অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <!-- Populated dynamically via admin.js -->
+            </tbody>
+          </table>
+
+          <!-- Empty & Loading states -->
+          <div id="tableEmptyState" class="empty-state" style="display: none;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <p>কোনো অর্ডার পাওয়া যায়নি</p>
+          </div>
+
+          <div id="tableLoadingState" class="empty-state">
+            <div class="spinner" style="border-top-color: var(--brand-primary); width: 32px; height: 32px; margin-bottom: 0.75rem;"></div>
+            <p>অর্ডার তালিকা লোড হচ্ছে...</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- ==============================================
+           TAB 2: PRODUCT & PRICING A-Z CONFIGURATION
+           ============================================== -->
+      <div id="tabProduct" class="admin-tab-content" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h2 class="admin-card-title">পণ্য ও মূল্যের A to Z পরিবর্তন</h2>
+              <p class="admin-card-desc">এখানে পণ্যের নাম, দাম, ছবি, বিবরণ ও অফার পরিবর্তন করলে তা সরাসরি লাইভ ল্যান্ডিং পেজে আপডেট হয়ে যাবে।</p>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" id="resetProductBtn">ডিফল্ট রিস্টোর</button>
+          </div>
+
+          <form id="productConfigForm">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cfgProductName" class="form-label">পণ্যের নাম (Product Title) <span class="required-star">*</span></label>
+                <input type="text" id="cfgProductName" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="cfgProductShortDesc" class="form-label">সংক্ষিপ্ত ট্যাগলাইন (Tagline)</label>
+                <input type="text" id="cfgProductShortDesc" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="cfgSalePrice" class="form-label">বিক্রয় মূল্য / অফার মূল্য (৳) <span class="required-star">*</span></label>
+                <input type="number" id="cfgSalePrice" class="form-control" min="1" required />
+                <span class="form-hint">গ্রাহককে এই মূল্য পরিশোধ করতে হবে</span>
+              </div>
+              <div class="form-group">
+                <label for="cfgOriginalPrice" class="form-label">পূর্বের মূল্য / কাটা মূল্য (৳)</label>
+                <input type="number" id="cfgOriginalPrice" class="form-control" min="1" required />
+                <span class="form-hint">কাটা দাগ দিয়ে দেখানো হবে</span>
+              </div>
+              <div class="form-group">
+                <label for="cfgDiscount" class="form-label">ছাড়ের শতকরা হার (%)</label>
+                <input type="number" id="cfgDiscount" class="form-control" min="0" max="100" />
+                <span class="form-hint">স্বয়ংক্রিয় ক্যালকুলেশন বা কাস্টম ছাড়</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cfgProductDesc" class="form-label">বিস্তারিত বিবরণ (Full Description)</label>
+              <textarea id="cfgProductDesc" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cfgOfferTitle" class="form-label">অফার হেডলাইন (Offer Badge Title)</label>
+                <input type="text" id="cfgOfferTitle" class="form-control" placeholder="যেমন: বিশেষ অফার" />
+              </div>
+              <div class="form-group">
+                <label for="cfgOfferText" class="form-label">অফার ব্যানার টেক্সট (Offer Banner Text)</label>
+                <input type="text" id="cfgOfferText" class="form-control" placeholder="যেমন: আজকের অর্ডারে পাচ্ছেন ৩৪% ছাড়!" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cfgImages" class="form-label">পণ্য ছবির লিংকসমূহ (Image URLs, প্রতি লাইনে একটি করে)</label>
+              <textarea id="cfgImages" class="form-control" rows="3" placeholder="assets/images/product-1.svg&#10;assets/images/product-2.svg"></textarea>
+              <span class="form-hint">প্রতিটি ছবির পাথ বা ওয়েব লিংক নতুন লাইনে দিন</span>
+            </div>
+
+            <div class="form-group">
+              <label for="cfgVariants" class="form-label">কালার ও ভ্যারিয়েন্ট তালিকা (প্রতি লাইনে একটি করে)</label>
+              <textarea id="cfgVariants" class="form-control" rows="3" placeholder="অরেঞ্জ আলপাইন (Orange Alpine)&#10;মিডনাইট ব্ল্যাক (Midnight Black)&#10;ওশান ব্লু (Ocean Blue)"></textarea>
+              <span class="form-hint">গ্রাহক অর্ডার করার সময় এখান থেকে কালার ড্রপডাউন ও চিপস দেখতে পাবেন</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+              <button type="submit" class="btn btn-primary" id="saveProductBtn">
+                💾 পণ্য ও মূল্যের তথ্য সেভ করুন
+              </button>
+              <span id="productSaveStatus" style="font-size: 0.9rem; font-weight: 600; color: var(--brand-primary); display: none;">✓ সংরক্ষিত হয়েছে!</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ==============================================
+           TAB 3: STORE & DELIVERY SETTINGS
+           ============================================== -->
+      <div id="tabSettings" class="admin-tab-content" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h2 class="admin-card-title">শপ ও ডেলিভারি চার্জ সেটিংস</h2>
+              <p class="admin-card-desc">আপনার শপের নাম, হেল্পলাইন নম্বর, হোয়াটসঅ্যাপ এবং সারা বাংলাদেশের ডেলিভারি চার্জ নিয়ন্ত্রণ করুন।</p>
+            </div>
+          </div>
+
+          <form id="storeSettingsForm">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cfgStoreName" class="form-label">শপের নাম (Store Name) <span class="required-star">*</span></label>
+                <input type="text" id="cfgStoreName" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="cfgHelpline" class="form-label">হেল্পলাইন ফোন নম্বর (Customer Care Phone)</label>
+                <input type="text" id="cfgHelpline" class="form-control" placeholder="01700-000000" required />
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="cfgWhatsapp" class="form-label">WhatsApp নম্বর (Country Code 88 সহ)</label>
+                <input type="text" id="cfgWhatsapp" class="form-control" placeholder="8801700000000" required />
+                <span class="form-hint">অর্ডার শেষে গ্রাহক এই নম্বরে হোয়াটসঅ্যাপ মেসেজ পাঠাবে</span>
+              </div>
+              <div class="form-group">
+                <label for="cfgCurrency" class="form-label">মুদ্রা প্রতীক (Currency Symbol)</label>
+                <input type="text" id="cfgCurrency" class="form-control" value="৳" required />
+              </div>
+            </div>
+
+            <div class="form-row-2" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+              <div class="form-group">
+                <label for="cfgDeliveryInside" class="form-label">ঢাকা সিটির ভেতর ডেলিভারি চার্জ (৳) <span class="required-star">*</span></label>
+                <input type="number" id="cfgDeliveryInside" class="form-control" min="0" required />
+                <span class="form-hint">ঢাকা জেলা নির্বাচন করলে এই চার্জ বসবে (ডিফল্ট: ৮০)</span>
+              </div>
+              <div class="form-group">
+                <label for="cfgDeliveryOutside" class="form-label">ঢাকার বাইরে সারা দেশে ডেলিভারি চার্জ (৳) <span class="required-star">*</span></label>
+                <input type="number" id="cfgDeliveryOutside" class="form-control" min="0" required />
+                <span class="form-hint">ঢাকার বাইরের অন্য যেকোনো জেলার জন্য (ডিফল্ট: ১২০)</span>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+              <label for="cfgApiUrl" class="form-label">Google Apps Script Web App URL</label>
+              <input type="url" id="cfgApiUrl" class="form-control" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" />
+              <span class="form-hint">আপনার ডিপ্লয় করা গুগল অ্যাপস স্ক্রিপ্ট ওয়েব অ্যাপ URL দিন। এটি দিলে ডেটা সরাসরি Google Sheets-এ সিঙ্ক হবে।</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+              <button type="submit" class="btn btn-primary" id="saveSettingsBtn">
+                💾 শপ ও ডেলিভারি সেটিংস সেভ করুন
+              </button>
+              <span id="settingsSaveStatus" style="font-size: 0.9rem; font-weight: 600; color: var(--brand-primary); display: none;">✓ সংরক্ষিত হয়েছে!</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  </div>
+
+  <!-- ==========================================
+       ORDER DETAILS & FULL A TO Z EDIT MODAL
+       ========================================== -->
+  <div class="modal-backdrop" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+    <div class="modal-dialog" style="max-width: 760px;">
+      <button type="button" class="modal-close-btn" id="closeDetailModalBtn" aria-label="বন্ধ করুন">✕</button>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+        <div>
+          <span style="font-size: 0.8rem; color: var(--text-light); text-transform: uppercase;">অর্ডার সম্পূর্ণ এডিট ও আপডেট (A to Z)</span>
+          <h3 id="detailOrderId" style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); font-family: monospace;">SP-20260926-000001</h3>
+        </div>
+        <div id="detailStatusBadge" class="status-badge Pending">Pending</div>
+      </div>
+
+      <form id="orderFullEditForm">
+        <div class="detail-grid">
+          <!-- Customer Info Card Editable -->
+          <div class="detail-card">
+            <h4>গ্রাহকের তথ্য পরিবর্তন</h4>
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <label for="editCustName" class="form-label" style="font-size: 0.85rem;">গ্রাহকের নাম *</label>
+              <input type="text" id="editCustName" class="form-control" style="padding: 0.5rem 0.75rem;" required />
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <label for="editCustPhone" class="form-label" style="font-size: 0.85rem;">মোবাইল নম্বর *</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="tel" id="editCustPhone" class="form-control" style="padding: 0.5rem 0.75rem;" required />
+                <a href="#" id="detailCustPhoneLink" class="btn btn-outline btn-sm" style="flex-shrink: 0;" title="কল করুন">📞</a>
+              </div>
+            </div>
+
+            <div class="form-row-2" style="margin-bottom: 0.75rem; gap: 0.5rem;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="editCustDivision" class="form-label" style="font-size: 0.85rem;">বিভাগ *</label>
+                <select id="editCustDivision" class="form-control" style="padding: 0.5rem 0.75rem;" required>
+                  <option value="ঢাকা">ঢাকা</option>
+                  <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                  <option value="রাজশাহী">রাজশাহী</option>
+                  <option value="খুলনা">খুলনা</option>
+                  <option value="বরিশাল">বরিশাল</option>
+                  <option value="সিলেট">সিলেট</option>
+                  <option value="রংপুর">রংপুর</option>
+                  <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="editCustDistrict" class="form-label" style="font-size: 0.85rem;">জেলা *</label>
+                <input type="text" id="editCustDistrict" class="form-control" style="padding: 0.5rem 0.75rem;" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <label for="editCustUpazila" class="form-label" style="font-size: 0.85rem;">উপজেলা / থানা *</label>
+              <input type="text" id="editCustUpazila" class="form-control" style="padding: 0.5rem 0.75rem;" required />
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="editCustAddress" class="form-label" style="font-size: 0.85rem;">বিস্তারিত ঠিকানা *</label>
+              <textarea id="editCustAddress" class="form-control" rows="2" style="padding: 0.5rem 0.75rem;" required></textarea>
+            </div>
+          </div>
+
+          <!-- Product & Financial Card Editable -->
+          <div class="detail-card">
+            <h4>পণ্য ও আর্থিক হিসাব পরিবর্তন</h4>
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <label for="editProdName" class="form-label" style="font-size: 0.85rem;">পণ্যের নাম</label>
+              <input type="text" id="editProdName" class="form-control" style="padding: 0.5rem 0.75rem;" required />
+            </div>
+
+            <div class="form-row-2" style="margin-bottom: 0.75rem; gap: 0.5rem;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="editProdVariant" class="form-label" style="font-size: 0.85rem;">ভ্যারিয়েন্ট / কালার</label>
+                <input type="text" id="editProdVariant" class="form-control" style="padding: 0.5rem 0.75rem;" />
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="editProdQty" class="form-label" style="font-size: 0.85rem;">পরিমাণ (Quantity)</label>
+                <input type="number" id="editProdQty" class="form-control" min="1" max="100" style="padding: 0.5rem 0.75rem;" required />
+              </div>
+            </div>
+
+            <div class="form-row-2" style="margin-bottom: 0.75rem; gap: 0.5rem;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="editUnitPrice" class="form-label" style="font-size: 0.85rem;">ইউনিট মূল্য (৳)</label>
+                <input type="number" id="editUnitPrice" class="form-control" min="0" style="padding: 0.5rem 0.75rem;" required />
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label for="editDeliveryCharge" class="form-label" style="font-size: 0.85rem;">ডেলিভারি চার্জ (৳)</label>
+                <input type="number" id="editDeliveryCharge" class="form-control" min="0" style="padding: 0.5rem 0.75rem;" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <label for="editTotalAmount" class="form-label" style="font-size: 0.85rem;">সর্বমোট পরিশোধযোগ্য (৳)</label>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="number" id="editTotalAmount" class="form-control" min="0" style="padding: 0.5rem 0.75rem; font-weight: 700; color: var(--brand-accent);" required />
+                <button type="button" class="btn btn-outline btn-sm" id="autoRecalcBtn" title="দাম ও ডেলিভারি অনুযায়ী হিসাব করুন" style="flex-shrink: 0; white-space: nowrap;">
+                  অটো ক্যালকুলেট
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="editPaymentMethod" class="form-label" style="font-size: 0.85rem;">পেমেন্ট পদ্ধতি</label>
+              <select id="editPaymentMethod" class="form-control" style="padding: 0.5rem 0.75rem;">
+                <option value="Cash on Delivery">Cash on Delivery (ক্যাশ অন ডেলিভারি)</option>
+                <option value="bKash (Paid)">bKash (বিকাশে পরিশোধিত)</option>
+                <option value="Nagad (Paid)">Nagad (নগদে পরিশোধিত)</option>
+                <option value="Bank Transfer">Bank Transfer (ব্যাংক ট্রান্সফার)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Note and Status & Admin Note -->
+        <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="editCustNote" class="form-label" style="font-size: 0.85rem;">গ্রাহকের বিশেষ নির্দেশনা (Customer Note):</label>
+            <input type="text" id="editCustNote" class="form-control" placeholder="গ্রাহক কোনো নোট দিলে এখানে থাকবে" />
+          </div>
+
+          <div class="form-row-2" style="gap: 0.75rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="detailStatusSelect" class="form-label" style="font-size: 0.85rem;">অর্ডার স্ট্যাটাস (Order Status):</label>
+              <select id="detailStatusSelect" class="form-control" style="padding: 0.6rem 0.75rem; font-weight: 600;">
+                <option value="Pending">Pending (পেন্ডিং)</option>
+                <option value="Confirmed">Confirmed (নিশ্চিত)</option>
+                <option value="Processing">Processing (প্রক্রিয়াধীন)</option>
+                <option value="Shipped">Shipped (কুরিয়ারে হস্তান্তর)</option>
+                <option value="Delivered">Delivered (সফলভাবে ডেলিভারি সম্পন্ন)</option>
+                <option value="Cancelled">Cancelled (বাতিল)</option>
+                <option value="Returned">Returned (পার্সেল ফেরত)</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="detailAdminNote" class="form-label" style="font-size: 0.85rem;">এডমিন নোট (Admin Internal Note):</label>
+              <input type="text" id="detailAdminNote" class="form-control" placeholder="যেমন: কুরিয়ার ট্র্যাকিং নম্বর বা কল কনফার্মেশন" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <button type="button" class="btn btn-outline btn-sm" id="deleteOrderBtn" style="color: var(--danger); border-color: #FECACA;">
+            🗑️ অর্ডারটি ডিলিট করুন
+          </button>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <button type="button" class="btn btn-outline" id="cancelEditBtn">
+              বাতিল
+            </button>
+            <button type="submit" class="btn btn-primary" id="saveAllOrderChangesBtn">
+              💾 সম্পূর্ণ অর্ডার আপডেট সেভ করুন (Save A-Z)
+            </button>
+          </div>
+        </div>
+
+        <!-- Timestamps & Client Request ID -->
+        <div style="margin-top: 1rem; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-light); flex-wrap: wrap;">
+          <div>তৈরির সময়: <span id="detailCreatedAt">-</span></div>
+          <div>সর্বশেষ আপডেট: <span id="detailUpdatedAt">-</span></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Admin JS Script -->
+  <script src="admin.js"></script>
+</body>
+</html>
